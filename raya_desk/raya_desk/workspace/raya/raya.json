@@ -1,0 +1,206 @@
+{
+ "app": "raya_desk",
+ "charts": [],
+ "content": "[{\"id\": \"rayahdr001\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>عملیات روزانه</b></span>\", \"col\": 12}}, {\"id\": \"rayasc0000\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"داشبورد\", \"col\": 3}}, {\"id\": \"rayasc0001\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"تخصیص لید\", \"col\": 3}}, {\"id\": \"rayasc0002\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"لید\", \"col\": 3}}, {\"id\": \"rayasc0003\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"مشتری\", \"col\": 3}}, {\"id\": \"rayasc0004\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"فاکتور فروش\", \"col\": 3}}, {\"id\": \"rayasc0005\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"فرصت\", \"col\": 3}}, {\"id\": \"rayasc0006\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"قرارداد\", \"col\": 3}}, {\"id\": \"rayasc0007\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"پیگیری‌ها\", \"col\": 3}}, {\"id\": \"rayaspc001\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"rayahdr002\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>گزارش و پیکربندی</b></span>\", \"col\": 12}}, {\"id\": \"rayacd0000\", \"type\": \"card\", \"data\": {\"card_name\": \"گزارش‌ها\", \"col\": 4}}, {\"id\": \"rayacd0001\", \"type\": \"card\", \"data\": {\"card_name\": \"پیکربندی\", \"col\": 4}}]",
+ "creation": "2026-11-01 12:00:00.000000",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "layout-dashboard",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "Raya",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "گزارش‌ها",
+   "link_count": 5,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Sales Analytics",
+   "link_count": 0,
+   "link_to": "Sales Analytics",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Sales Register",
+   "link_count": 0,
+   "link_to": "Sales Register",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Accounts Receivable",
+   "link_count": 0,
+   "link_to": "Accounts Receivable",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Lead Details",
+   "link_count": 0,
+   "link_to": "Lead Details",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Lead Owner Efficiency",
+   "link_count": 0,
+   "link_to": "Lead Owner Efficiency",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "پیکربندی",
+   "link_count": 4,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "شعبه",
+   "link_count": 0,
+   "link_to": "Branch",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "منبع لید (UTM Source)",
+   "link_count": 0,
+   "link_to": "UTM Source",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "تنظیمات رایا",
+   "link_count": 0,
+   "link_to": "Raya Desk Settings",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "گزارش عملیات دستیار",
+   "link_count": 0,
+   "link_to": "Raya Assistant Log",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-11-01 12:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Raya Desk",
+ "name": "Raya",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "restrict_to_domain": "",
+ "roles": [
+  {
+   "role": "Sales User"
+  },
+  {
+   "role": "Sales Manager"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
+ "sequence_id": 0.5,
+ "shortcuts": [
+  {
+   "label": "داشبورد",
+   "type": "Page",
+   "link_to": "raya-dashboard",
+   "doc_view": "",
+   "color": "Green"
+  },
+  {
+   "label": "تخصیص لید",
+   "type": "Page",
+   "link_to": "raya-lead-assignment",
+   "doc_view": "",
+   "color": "Green"
+  },
+  {
+   "label": "لید",
+   "type": "DocType",
+   "link_to": "Lead",
+   "doc_view": "List",
+   "color": "Grey"
+  },
+  {
+   "label": "مشتری",
+   "type": "DocType",
+   "link_to": "Customer",
+   "doc_view": "List",
+   "color": "Grey"
+  },
+  {
+   "label": "فاکتور فروش",
+   "type": "DocType",
+   "link_to": "Sales Invoice",
+   "doc_view": "List",
+   "color": "Grey"
+  },
+  {
+   "label": "فرصت",
+   "type": "DocType",
+   "link_to": "Opportunity",
+   "doc_view": "List",
+   "color": "Grey"
+  },
+  {
+   "label": "قرارداد",
+   "type": "DocType",
+   "link_to": "Contract",
+   "doc_view": "List",
+   "color": "Grey"
+  },
+  {
+   "label": "پیگیری‌ها",
+   "type": "DocType",
+   "link_to": "ToDo",
+   "doc_view": "List",
+   "color": "Grey"
+  }
+ ],
+ "standard": 1,
+ "title": "رایا",
+ "type": "Workspace"
+}

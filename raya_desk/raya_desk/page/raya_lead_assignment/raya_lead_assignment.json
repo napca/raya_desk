@@ -1,0 +1,26 @@
+{
+ "content": null,
+ "creation": "2026-11-01 12:00:00.000000",
+ "docstatus": 0,
+ "doctype": "Page",
+ "idx": 0,
+ "modified": "2026-11-01 12:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Raya Desk",
+ "name": "raya-lead-assignment",
+ "owner": "Administrator",
+ "page_name": "raya-lead-assignment",
+ "roles": [
+  {
+   "role": "Sales Manager"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
+ "script": null,
+ "standard": "Yes",
+ "style": null,
+ "system_page": 0,
+ "title": "تخصیص لید"
+}

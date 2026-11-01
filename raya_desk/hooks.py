@@ -8,18 +8,24 @@ app_license = "mit"
 # Apps
 # ------------------
 
-# required_apps = []
+required_apps = ["erpnext"]
 
 # Each item in the list will be shown as an app in the apps page
-# add_to_apps_screen = [
-# 	{
-# 		"name": "raya_desk",
-# 		"logo": "/assets/raya_desk/logo.png",
-# 		"title": "Raya Desk",
-# 		"route": "/raya_desk",
-# 		"has_permission": "raya_desk.api.permission.has_app_permission",
-# 	}
-# ]
+add_to_apps_screen = [
+	{
+		"name": "raya_desk",
+		"logo": "/assets/raya_desk/images/raya-mark.png",
+		"title": "رایا",
+		"route": "/desk/raya-dashboard",
+	}
+]
+
+app_logo_url = "/assets/raya_desk/images/raya-mark.png"
+
+website_context = {
+	"favicon": "/assets/raya_desk/images/raya-favicon.png",
+	"splash_image": "/assets/raya_desk/images/raya-mark.png",
+}
 
 # The dock, the rail down the left of the desk, is a document rather than a hook. Author it in
 # Manage Dock on a developer-mode site and press Export to App, and it is written to
@@ -34,8 +40,9 @@ app_license = "mit"
 # ------------------
 
 # include js, css files in header of desk.html
-# app_include_css = "/assets/raya_desk/css/raya_desk.css"
-# app_include_js = "/assets/raya_desk/js/raya_desk.js"
+# The theme and assistant are opt-out: Raya Desk Settings, ?raya=off or localStorage "raya_desk_off"
+app_include_css = "raya_desk.bundle.css"
+app_include_js = "raya_desk.bundle.js"
 
 # include js, css files in header of web template
 # web_include_css = "/assets/raya_desk/css/raya_desk.css"
@@ -96,7 +103,14 @@ app_license = "mit"
 # ------------
 
 # before_install = "raya_desk.install.before_install"
-# after_install = "raya_desk.install.after_install"
+after_install = "raya_desk.install.after_install"
+after_migrate = "raya_desk.install.after_migrate"
+
+boot_session = "raya_desk.boot.boot_session"
+
+default_log_clearing_doctypes = {"Raya Assistant Log": 90}
+
+scheduler_events = {"hourly": ["raya_desk.assistant.executor.expire_previews"]}
 
 # Uninstallation
 # ------------

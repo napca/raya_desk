@@ -1,0 +1,1372 @@
+/*
+ * Raya Faraz theme for Frappe Desk.
+ *
+ * Write physical left/right in LTR terms: Frappe builds a css-rtl twin with rtlcss that flips
+ * them for Persian, so the assistant sits opposite the shell in both directions.
+ *
+ * Scope: every rule sits under html.raya-theme, which raya_desk.bundle.js adds unless the theme is
+ * disabled (Raya Desk Settings, ?raya=off, or localStorage "raya_desk_off"). Most of the work is
+ * re-pointing Frappe's own design tokens; component rules are limited to the shell (dock,
+ * sidebar, page head), cards and the shared Raya components. Dark mode keeps Frappe's palette
+ * and only receives the brand accent.
+ */
+
+@font-face {
+	font-family: "Vazirmatn";
+	src: url("/assets/raya_desk/fonts/vazirmatn/Vazirmatn-Variable.woff2") format("woff2-variations"),
+		url("/assets/raya_desk/fonts/vazirmatn/Vazirmatn-Variable.woff2") format("woff2");
+	font-weight: 100 900;
+	font-style: normal;
+	font-display: swap;
+}
+
+/* ------------------------------------------------------------------ tokens */
+
+:root {
+	--raya-navy: #0d213b;
+	--raya-navy-2: #132b49;
+	--raya-navy-3: #1b3757;
+	--raya-navy-ink: #c8d4e2;
+	--raya-teal: #16786f;
+	--raya-teal-strong: #11635b;
+	--raya-teal-soft: #e3f1ee;
+	--raya-teal-tint: #f0f7f5;
+	--raya-bg: #f2f7f5;
+	--raya-card: #ffffff;
+	--raya-line: #e1e9e6;
+	--raya-line-strong: #cfdbd7;
+	--raya-ink: #12263d;
+	--raya-ink-2: #4a5b6e;
+	--raya-ink-3: #7a8999;
+	--raya-danger: #c0392b;
+	--raya-warning: #b7791f;
+	--raya-success: #1f8a5b;
+	--raya-radius: 14px;
+	--raya-radius-sm: 10px;
+	--raya-radius-xs: 7px;
+	--raya-shadow: 0 1px 2px rgba(13, 33, 59, 0.05), 0 6px 20px rgba(13, 33, 59, 0.05);
+	--raya-shadow-lg: 0 12px 40px rgba(13, 33, 59, 0.18);
+	--raya-space-1: 4px;
+	--raya-space-2: 8px;
+	--raya-space-3: 12px;
+	--raya-space-4: 16px;
+	--raya-space-5: 24px;
+	--raya-space-6: 32px;
+	--raya-font: "Vazirmatn", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+html.raya-theme {
+	--font-stack: var(--raya-font);
+	--border-radius-lg: var(--raya-radius-sm);
+	--border-radius-xl: var(--raya-radius);
+	--border-radius-2xl: var(--raya-radius);
+}
+
+html.raya-theme:not([data-theme="dark"]) {
+	--surface-base: #ffffff;
+	--bg-color: var(--raya-bg);
+	--fg-color: var(--raya-card);
+	--card-bg: var(--raya-card);
+	--text-color: var(--raya-ink);
+	--heading-color: var(--raya-ink);
+	--text-muted: var(--raya-ink-3);
+	--text-light: var(--raya-ink-2);
+	--border-color: var(--raya-line);
+	--table-border-color: var(--raya-line);
+	--dark-border-color: var(--raya-line-strong);
+	--control-bg: #f4f8f7;
+	--control-bg-on-gray: #ebf2f0;
+	--primary: var(--raya-teal);
+	--primary-color: var(--raya-teal);
+	--btn-primary: var(--raya-teal);
+	--border-primary: var(--raya-teal);
+	--sidebar-select-color: var(--raya-teal-soft);
+	--ink-blue-link: var(--raya-teal);
+	--surface-gray-10: var(--raya-teal);
+}
+
+html.raya-theme[data-theme="dark"] {
+	--primary: #2aa395;
+	--primary-color: #2aa395;
+	--btn-primary: #1e8c80;
+	--border-primary: #2aa395;
+	--ink-blue-link: #4cc2b3;
+}
+
+html.raya-theme body {
+	font-family: var(--raya-font);
+	font-feature-settings: "ss01";
+}
+
+html.raya-theme:not([data-theme="dark"]) body,
+html.raya-theme:not([data-theme="dark"]) .main-section,
+html.raya-theme:not([data-theme="dark"]) .page-container {
+	background-color: var(--raya-bg);
+}
+
+/* Latin fragments (codes, numbers in LTR runs) keep their own direction inside RTL text */
+html.raya-theme .raya-ltr,
+html.raya-theme input[type="email"],
+html.raya-theme input[data-fieldtype="Phone"],
+html.raya-theme input[data-fieldtype="Data"][data-fieldname$="email_id"] {
+	direction: ltr;
+	unicode-bidi: plaintext;
+}
+
+/* --------------------------------------------------------- shell: the dock */
+
+html.raya-theme #desk-dock,
+html.raya-theme .dock {
+	background: var(--raya-navy);
+	border-color: transparent;
+}
+
+html.raya-theme .dock .dock-item {
+	color: var(--raya-navy-ink);
+	border-radius: var(--raya-radius-sm);
+}
+
+html.raya-theme .dock .dock-item .icon,
+html.raya-theme .dock .dock-item svg {
+	stroke: currentColor;
+	--icon-stroke: currentColor;
+}
+
+html.raya-theme .dock .dock-item:hover {
+	background: var(--raya-navy-3);
+	color: #fff;
+}
+
+html.raya-theme .dock .dock-item.active {
+	background: var(--raya-teal);
+	color: #fff;
+	box-shadow: none;
+}
+
+html.raya-theme .dock .dock-item-label {
+	color: inherit;
+}
+
+html.raya-theme .dock-logo .header-logo img,
+html.raya-theme .sidebar-header .header-logo img {
+	border-radius: var(--raya-radius-xs);
+	object-fit: contain;
+}
+
+/* ------------------------------------------------------ shell: the sidebar */
+
+html.raya-theme .body-sidebar-container .body-sidebar {
+	background: var(--raya-navy-2);
+	border-color: transparent;
+	color: var(--raya-navy-ink);
+	--text-color: var(--raya-navy-ink);
+	--ink-gray-5: #8fa1b6;
+	--ink-gray-6: #a9b7c8;
+	--ink-gray-7: var(--raya-navy-ink);
+	--ink-gray-8: #e3eaf2;
+	--ink-gray-9: #ffffff;
+	--icon-stroke: currentColor;
+}
+
+html.raya-theme .body-sidebar .sidebar-header,
+html.raya-theme .body-sidebar .header-title {
+	color: #fff;
+}
+
+html.raya-theme .body-sidebar .standard-sidebar-item {
+	color: var(--raya-navy-ink);
+	border-radius: var(--raya-radius-sm);
+}
+
+html.raya-theme .body-sidebar .standard-sidebar-item .sidebar-item-label,
+html.raya-theme .body-sidebar .standard-sidebar-item .sidebar-item-icon {
+	color: inherit;
+}
+
+html.raya-theme .body-sidebar .standard-sidebar-item .icon,
+html.raya-theme .body-sidebar .standard-sidebar-item svg {
+	stroke: currentColor;
+}
+
+html.raya-theme .body-sidebar .standard-sidebar-item:hover {
+	background: var(--raya-navy-3);
+	color: #fff;
+}
+
+html.raya-theme .body-sidebar .standard-sidebar-item.active-sidebar,
+html.raya-theme .body-sidebar .standard-sidebar-item.selected {
+	background: var(--raya-teal);
+	color: #fff;
+	box-shadow: 0 2px 10px rgba(22, 120, 111, 0.35);
+}
+
+html.raya-theme .body-sidebar .sidebar-item-container .section-break,
+html.raya-theme .body-sidebar .sidebar-section-title,
+html.raya-theme .body-sidebar .sidebar-item-container .standard-sidebar-section {
+	color: #8fa1b6;
+}
+
+html.raya-theme .body-sidebar-container .sidebar-edge {
+	background: transparent;
+}
+
+/* Frappe turns the sidebar into a drawer on phones; a closed drawer must stay see-through */
+@media (max-width: 767.98px) {
+	html.raya-theme .body-sidebar-container:not(.expanded) .body-sidebar {
+		background: transparent;
+	}
+}
+
+/* --------------------------------------------------------- page head/body */
+
+html.raya-theme:not([data-theme="dark"]) .main-section > header,
+html.raya-theme:not([data-theme="dark"]) .page-head {
+	background: rgba(255, 255, 255, 0.92);
+	backdrop-filter: saturate(140%) blur(6px);
+	border-bottom: 1px solid var(--raya-line);
+}
+
+html.raya-theme .page-head .title-text,
+html.raya-theme .page-head .page-title .title-area h3 {
+	font-weight: 700;
+	letter-spacing: 0;
+}
+
+html.raya-theme .btn {
+	border-radius: var(--raya-radius-sm);
+	font-weight: 500;
+}
+
+html.raya-theme .btn-primary,
+html.raya-theme .btn-primary:focus {
+	background-color: var(--raya-teal);
+	border-color: var(--raya-teal);
+	color: #fff;
+}
+
+html.raya-theme .btn-primary:hover,
+html.raya-theme .btn-primary:active {
+	background-color: var(--raya-teal-strong);
+	border-color: var(--raya-teal-strong);
+}
+
+html.raya-theme .form-control,
+html.raya-theme .awesomplete > input,
+html.raya-theme .frappe-control select {
+	border-radius: var(--raya-radius-xs);
+}
+
+html.raya-theme .form-control:focus {
+	box-shadow: 0 0 0 2px rgba(22, 120, 111, 0.22);
+}
+
+html.raya-theme a:not(.btn):not(.dropdown-item):not(.standard-sidebar-item):focus-visible,
+html.raya-theme .btn:focus-visible {
+	outline: 2px solid var(--raya-teal);
+	outline-offset: 2px;
+}
+
+/* Cards: list, report, form layout, workspace widgets */
+html.raya-theme:not([data-theme="dark"]) .frappe-list,
+html.raya-theme:not([data-theme="dark"]) .report-wrapper,
+html.raya-theme:not([data-theme="dark"]) .form-layout,
+html.raya-theme:not([data-theme="dark"]) .widget,
+html.raya-theme:not([data-theme="dark"]) .frappe-card,
+html.raya-theme:not([data-theme="dark"]) .layout-main-section > .onboarding-widget-box {
+	background: var(--raya-card);
+	border: 1px solid var(--raya-line);
+	border-radius: var(--raya-radius);
+	box-shadow: var(--raya-shadow);
+}
+
+html.raya-theme .form-layout {
+	overflow: visible;
+}
+
+html.raya-theme .form-tabs-list {
+	border-bottom-color: var(--raya-line);
+}
+
+html.raya-theme .form-tabs .nav-link.active {
+	color: var(--raya-teal);
+	border-bottom-color: var(--raya-teal);
+}
+
+html.raya-theme .form-section .section-head {
+	font-weight: 700;
+	color: var(--raya-ink);
+}
+
+/* List view rows */
+html.raya-theme .list-row-head {
+	background: var(--raya-teal-tint);
+	border-radius: var(--raya-radius) var(--raya-radius) 0 0;
+	color: var(--raya-ink-2);
+	font-weight: 600;
+}
+
+html.raya-theme[data-theme="dark"] .list-row-head {
+	background: transparent;
+}
+
+html.raya-theme .list-row:hover,
+html.raya-theme .list-row-container:hover > .list-row {
+	background: var(--raya-teal-tint);
+}
+
+html.raya-theme[data-theme="dark"] .list-row:hover {
+	background: var(--surface-gray-2);
+}
+
+html.raya-theme .list-row .level-left a,
+html.raya-theme .list-subject a {
+	font-weight: 600;
+}
+
+/* Child tables keep their scroll inside the card instead of widening the page */
+html.raya-theme .form-grid-container {
+	border-radius: var(--raya-radius-sm);
+}
+
+html.raya-theme .form-grid {
+	border-color: var(--raya-line);
+	border-radius: var(--raya-radius-sm);
+}
+
+html.raya-theme .form-grid .grid-heading-row {
+	background: var(--raya-teal-tint);
+	border-radius: var(--raya-radius-sm) var(--raya-radius-sm) 0 0;
+}
+
+html.raya-theme[data-theme="dark"] .form-grid .grid-heading-row {
+	background: transparent;
+}
+
+/* Status pills */
+html.raya-theme .indicator-pill,
+html.raya-theme .badge {
+	border-radius: 999px;
+	font-weight: 600;
+}
+
+/* Dialogs */
+html.raya-theme .modal-content {
+	border-radius: var(--raya-radius);
+	border: 1px solid var(--raya-line);
+	box-shadow: var(--raya-shadow-lg);
+}
+
+html.raya-theme .modal-header {
+	border-bottom: 1px solid var(--raya-line);
+}
+
+/* Workspace */
+html.raya-theme .workspace-skeleton .widget.shortcut-widget-box,
+html.raya-theme .shortcut-widget-box {
+	border-radius: var(--raya-radius-sm);
+}
+
+html.raya-theme .number-widget-box .widget-content .number {
+	color: var(--raya-teal);
+	font-weight: 700;
+}
+
+/* ------------------------------------------------- shared Raya components */
+
+.raya-page {
+	--gap: var(--raya-space-4);
+	display: flex;
+	flex-direction: column;
+	gap: var(--gap);
+	padding: var(--raya-space-4) 0 var(--raya-space-6);
+	color: var(--text-color);
+}
+
+.raya-row {
+	display: grid;
+	gap: var(--raya-space-4);
+	grid-template-columns: repeat(var(--cols, 4), minmax(0, 1fr));
+}
+
+.raya-card {
+	background: var(--card-bg);
+	border: 1px solid var(--border-color);
+	border-radius: var(--raya-radius);
+	box-shadow: var(--raya-shadow);
+	padding: var(--raya-space-4) var(--raya-space-5);
+	min-width: 0;
+}
+
+.raya-card-head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--raya-space-3);
+	margin-bottom: var(--raya-space-3);
+}
+
+.raya-card-title {
+	font-size: 15px;
+	font-weight: 700;
+	margin: 0;
+	color: var(--heading-color);
+}
+
+.raya-card-sub {
+	font-size: 12px;
+	color: var(--text-muted);
+}
+
+.raya-card--dark {
+	background: linear-gradient(160deg, var(--raya-navy) 0%, #132f45 100%);
+	border-color: transparent;
+	color: #e6eef6;
+	--heading-color: #fff;
+	--text-muted: #9fb2c6;
+}
+
+.raya-card--tint {
+	background: linear-gradient(180deg, var(--raya-teal-soft) 0%, var(--card-bg) 100%);
+}
+
+html[data-theme="dark"] .raya-card--tint {
+	background: var(--card-bg);
+}
+
+.raya-stat {
+	display: flex;
+	flex-direction: column;
+	gap: var(--raya-space-2);
+}
+
+.raya-stat-label {
+	font-size: 13px;
+	color: var(--text-muted);
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.raya-stat-value {
+	font-size: 26px;
+	font-weight: 800;
+	color: var(--heading-color);
+	line-height: 1.2;
+	font-variant-numeric: tabular-nums;
+}
+
+.raya-stat-foot {
+	font-size: 12px;
+	color: var(--text-muted);
+}
+
+.raya-delta-up {
+	color: var(--raya-success);
+	font-weight: 700;
+}
+
+.raya-delta-down {
+	color: var(--raya-danger);
+	font-weight: 700;
+}
+
+.raya-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	padding: 2px 10px;
+	border-radius: 999px;
+	font-size: 11.5px;
+	font-weight: 600;
+	background: var(--raya-teal-soft);
+	color: var(--raya-teal-strong);
+	white-space: nowrap;
+}
+
+.raya-badge--sample,
+.raya-badge--demo {
+	background: #fff4dc;
+	color: #8a5a00;
+}
+
+.raya-badge--muted {
+	background: var(--control-bg);
+	color: var(--text-muted);
+}
+
+.raya-badge--danger {
+	background: #fde8e6;
+	color: var(--raya-danger);
+}
+
+html[data-theme="dark"] .raya-badge {
+	background: rgba(42, 163, 149, 0.18);
+	color: #7fd6ca;
+}
+
+html[data-theme="dark"] .raya-badge--demo,
+html[data-theme="dark"] .raya-badge--sample {
+	background: rgba(214, 158, 46, 0.2);
+	color: #f2c879;
+}
+
+/* Segmented filter */
+.raya-segmented {
+	display: inline-flex;
+	background: var(--card-bg);
+	border: 1px solid var(--border-color);
+	border-radius: var(--raya-radius-sm);
+	padding: 3px;
+	gap: 2px;
+	flex-wrap: wrap;
+}
+
+.raya-segmented button {
+	border: 0;
+	background: transparent;
+	padding: 5px 12px;
+	border-radius: var(--raya-radius-xs);
+	font-size: 12.5px;
+	color: var(--text-muted);
+	cursor: pointer;
+}
+
+.raya-segmented button[aria-pressed="true"] {
+	background: var(--raya-teal);
+	color: #fff;
+	font-weight: 600;
+}
+
+.raya-toolbar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--raya-space-3);
+	flex-wrap: wrap;
+}
+
+.raya-toolbar-group {
+	display: flex;
+	align-items: center;
+	gap: var(--raya-space-2);
+	flex-wrap: wrap;
+}
+
+.raya-select {
+	min-width: 160px;
+	height: 34px;
+	border-radius: var(--raya-radius-sm);
+	border: 1px solid var(--border-color);
+	background: var(--card-bg);
+	color: var(--text-color);
+	padding: 0 10px;
+	font-family: inherit;
+}
+
+/* States */
+.raya-state {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	gap: var(--raya-space-2);
+	padding: var(--raya-space-6) var(--raya-space-4);
+	color: var(--text-muted);
+	font-size: 13px;
+	min-height: 120px;
+}
+
+.raya-state-icon {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	display: grid;
+	place-items: center;
+	background: var(--control-bg);
+	color: var(--text-muted);
+	font-size: 18px;
+}
+
+.raya-state--error .raya-state-icon {
+	background: #fde8e6;
+	color: var(--raya-danger);
+}
+
+.raya-state--forbidden .raya-state-icon {
+	background: #fff4dc;
+	color: #8a5a00;
+}
+
+.raya-skeleton {
+	background: linear-gradient(90deg, var(--control-bg) 0%, var(--raya-line) 50%, var(--control-bg) 100%);
+	background-size: 200% 100%;
+	animation: raya-shimmer 1.3s infinite linear;
+	border-radius: var(--raya-radius-xs);
+	min-height: 14px;
+}
+
+@keyframes raya-shimmer {
+	from {
+		background-position: 200% 0;
+	}
+	to {
+		background-position: -200% 0;
+	}
+}
+
+/* Funnel (marketing strip) */
+.raya-funnel {
+	display: grid;
+	grid-template-columns: repeat(5, minmax(0, 1fr));
+	align-items: start;
+	gap: var(--raya-space-2);
+	padding: var(--raya-space-4) 0 var(--raya-space-2);
+}
+
+.raya-funnel-step {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: var(--raya-space-2);
+	position: relative;
+	text-align: center;
+}
+
+.raya-funnel-step:not(:last-child)::after {
+	content: "";
+	position: absolute;
+	top: 28px;
+	inset-inline-start: calc(50% + 34px);
+	inset-inline-end: calc(-50% + 34px);
+	border-top: 1px dashed rgba(200, 212, 226, 0.35);
+}
+
+.raya-hex {
+	width: 56px;
+	height: 56px;
+	display: grid;
+	place-items: center;
+	clip-path: polygon(50% 0, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
+	background: var(--raya-navy-3);
+	color: #fff;
+}
+
+.raya-hex svg {
+	width: 22px;
+	height: 22px;
+	stroke: currentColor;
+}
+
+.raya-funnel-step.is-key .raya-hex {
+	background: var(--raya-teal);
+	width: 64px;
+	height: 64px;
+}
+
+.raya-funnel-label {
+	font-size: 12.5px;
+	color: #9fb2c6;
+}
+
+.raya-funnel-value {
+	font-size: 22px;
+	font-weight: 800;
+	color: #fff;
+	font-variant-numeric: tabular-nums;
+}
+
+.raya-funnel-note {
+	font-size: 11px;
+	color: #9fb2c6;
+}
+
+/* Lists inside cards */
+.raya-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: var(--raya-space-2);
+}
+
+.raya-list-item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--raya-space-3);
+	padding: 10px 12px;
+	background: var(--control-bg);
+	border-radius: var(--raya-radius-sm);
+	font-size: 13px;
+	min-width: 0;
+}
+
+.raya-list-item a {
+	color: var(--text-color);
+	font-weight: 600;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.raya-list-item .meta {
+	color: var(--text-muted);
+	font-size: 12px;
+	white-space: nowrap;
+}
+
+/* Tables */
+.raya-table-wrap {
+	overflow-x: auto;
+	border: 1px solid var(--border-color);
+	border-radius: var(--raya-radius-sm);
+}
+
+.raya-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 13px;
+}
+
+.raya-table th,
+.raya-table td {
+	padding: 9px 12px;
+	border-bottom: 1px solid var(--border-color);
+	text-align: start;
+	white-space: nowrap;
+}
+
+.raya-table th {
+	background: var(--raya-teal-tint);
+	color: var(--raya-ink-2);
+	font-weight: 600;
+	position: sticky;
+	top: 0;
+}
+
+html[data-theme="dark"] .raya-table th {
+	background: var(--surface-gray-2);
+	color: var(--text-muted);
+}
+
+.raya-table tr:last-child td {
+	border-bottom: 0;
+}
+
+/* Stepper */
+.raya-stepper {
+	display: flex;
+	gap: var(--raya-space-2);
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.raya-step {
+	display: flex;
+	align-items: center;
+	gap: var(--raya-space-2);
+	padding: 6px 14px 6px 10px;
+	border-radius: 999px;
+	background: var(--card-bg);
+	border: 1px solid var(--border-color);
+	color: var(--text-muted);
+	font-size: 13px;
+}
+
+.raya-step-num {
+	width: 22px;
+	height: 22px;
+	border-radius: 50%;
+	display: grid;
+	place-items: center;
+	background: var(--control-bg);
+	font-weight: 700;
+	font-size: 12px;
+}
+
+.raya-step.is-active {
+	border-color: var(--raya-teal);
+	color: var(--raya-teal-strong);
+	font-weight: 600;
+}
+
+.raya-step.is-active .raya-step-num,
+.raya-step.is-done .raya-step-num {
+	background: var(--raya-teal);
+	color: #fff;
+}
+
+.raya-step-sep {
+	flex: 0 0 24px;
+	border-top: 1px dashed var(--raya-line-strong);
+}
+
+/* Source cards for assignment */
+.raya-source-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+	gap: var(--raya-space-3);
+}
+
+.raya-source {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	padding: var(--raya-space-4);
+	border: 1px solid var(--border-color);
+	border-radius: var(--raya-radius);
+	background: var(--card-bg);
+	cursor: pointer;
+	text-align: start;
+	font: inherit;
+	color: inherit;
+}
+
+.raya-source:hover {
+	border-color: var(--raya-line-strong);
+}
+
+.raya-source[aria-pressed="true"] {
+	border-color: var(--raya-teal);
+	box-shadow: 0 0 0 2px rgba(22, 120, 111, 0.18);
+	background: var(--raya-teal-tint);
+}
+
+html[data-theme="dark"] .raya-source[aria-pressed="true"] {
+	background: rgba(42, 163, 149, 0.1);
+}
+
+.raya-source[disabled] {
+	cursor: not-allowed;
+	opacity: 0.72;
+}
+
+.raya-source-count {
+	font-size: 22px;
+	font-weight: 800;
+	font-variant-numeric: tabular-nums;
+}
+
+.raya-source-name {
+	font-weight: 600;
+	font-size: 13.5px;
+}
+
+.raya-check {
+	position: absolute;
+	top: 12px;
+	inset-inline-end: 12px;
+	width: 20px;
+	height: 20px;
+	border-radius: 6px;
+	border: 1.5px solid var(--raya-line-strong);
+	display: grid;
+	place-items: center;
+	color: transparent;
+	font-size: 12px;
+}
+
+.raya-source[aria-pressed="true"] .raya-check {
+	background: var(--raya-teal);
+	border-color: var(--raya-teal);
+	color: #fff;
+}
+
+/* Hero input on the dashboard */
+.raya-hero {
+	display: flex;
+	align-items: center;
+	gap: var(--raya-space-3);
+	padding: var(--raya-space-3) var(--raya-space-3) var(--raya-space-3) var(--raya-space-4);
+}
+
+.raya-hero-input {
+	flex: 1;
+	min-width: 0;
+	border: 0;
+	background: transparent;
+	font: inherit;
+	font-size: 15px;
+	color: var(--text-color);
+	outline: none;
+	padding: 8px 4px;
+}
+
+.raya-hero-status {
+	font-size: 12px;
+	color: var(--text-muted);
+	white-space: nowrap;
+}
+
+.raya-icon-btn {
+	width: 44px;
+	height: 44px;
+	border-radius: 50%;
+	border: 0;
+	display: grid;
+	place-items: center;
+	background: var(--raya-teal);
+	color: #fff;
+	cursor: pointer;
+	flex: 0 0 auto;
+}
+
+.raya-icon-btn svg {
+	width: 20px;
+	height: 20px;
+	stroke: currentColor;
+}
+
+.raya-icon-btn:hover {
+	background: var(--raya-teal-strong);
+}
+
+.raya-icon-btn--ghost {
+	background: var(--control-bg);
+	color: var(--text-color);
+}
+
+.raya-icon-btn--ghost:hover {
+	background: var(--raya-line);
+}
+
+.raya-chips {
+	display: flex;
+	gap: var(--raya-space-2);
+	flex-wrap: wrap;
+}
+
+.raya-chip {
+	border: 1px solid var(--border-color);
+	background: var(--card-bg);
+	border-radius: 999px;
+	padding: 5px 12px;
+	font-size: 12.5px;
+	color: var(--text-color);
+	cursor: pointer;
+	font-family: inherit;
+}
+
+.raya-chip:hover {
+	border-color: var(--raya-teal);
+	color: var(--raya-teal-strong);
+}
+
+.raya-chart {
+	min-height: 240px;
+}
+
+/* --------------------------------------------------------- the assistant */
+
+.raya-fab {
+	position: fixed;
+	z-index: 1030;
+	bottom: 22px;
+	right: 22px;
+	width: 56px;
+	height: 56px;
+	border-radius: 18px;
+	border: 0;
+	background: var(--raya-navy);
+	box-shadow: var(--raya-shadow-lg);
+	cursor: pointer;
+	display: grid;
+	place-items: center;
+	padding: 0;
+	overflow: hidden;
+}
+
+.raya-fab img {
+	width: 40px;
+	height: 40px;
+	object-fit: contain;
+}
+
+.raya-fab[data-state="listening"] {
+	box-shadow: 0 0 0 4px rgba(22, 120, 111, 0.35), var(--raya-shadow-lg);
+}
+
+.raya-fab-dot {
+	position: absolute;
+	top: 8px;
+	inset-inline-end: 8px;
+	width: 9px;
+	height: 9px;
+	border-radius: 50%;
+	background: #f2c879;
+}
+
+.raya-panel {
+	position: fixed;
+	z-index: 1031;
+	bottom: 90px;
+	right: 22px;
+	width: min(420px, calc(100vw - 32px));
+	height: min(640px, calc(100vh - 120px));
+	display: flex;
+	flex-direction: column;
+	background: var(--card-bg);
+	border: 1px solid var(--border-color);
+	border-radius: var(--raya-radius);
+	box-shadow: var(--raya-shadow-lg);
+	overflow: hidden;
+	color: var(--text-color);
+	font-family: var(--raya-font);
+}
+
+.raya-panel[hidden] {
+	display: none;
+}
+
+.raya-panel-head {
+	display: flex;
+	align-items: center;
+	gap: var(--raya-space-3);
+	padding: var(--raya-space-3) var(--raya-space-4);
+	background: var(--raya-navy);
+	color: #fff;
+}
+
+.raya-panel-head img {
+	width: 32px;
+	height: 32px;
+	border-radius: 8px;
+}
+
+.raya-panel-title {
+	font-weight: 700;
+	font-size: 14px;
+	line-height: 1.3;
+}
+
+.raya-panel-state {
+	font-size: 11.5px;
+	color: #9fb2c6;
+}
+
+.raya-panel-head .spacer {
+	flex: 1;
+}
+
+.raya-panel-head button {
+	background: transparent;
+	border: 0;
+	color: #c8d4e2;
+	width: 32px;
+	height: 32px;
+	border-radius: 8px;
+	cursor: pointer;
+	display: grid;
+	place-items: center;
+}
+
+.raya-panel-head button:hover,
+.raya-panel-head button[aria-pressed="true"] {
+	background: var(--raya-navy-3);
+	color: #fff;
+}
+
+.raya-panel-head svg {
+	width: 18px;
+	height: 18px;
+	stroke: currentColor;
+}
+
+.raya-context {
+	display: flex;
+	align-items: center;
+	gap: var(--raya-space-2);
+	padding: 8px var(--raya-space-4);
+	border-bottom: 1px solid var(--border-color);
+	font-size: 12px;
+	color: var(--text-muted);
+	background: var(--raya-teal-tint);
+	flex-wrap: wrap;
+}
+
+html[data-theme="dark"] .raya-context {
+	background: var(--surface-gray-1);
+}
+
+.raya-context strong {
+	color: var(--text-color);
+	font-weight: 600;
+}
+
+.raya-messages {
+	flex: 1;
+	overflow-y: auto;
+	padding: var(--raya-space-4);
+	display: flex;
+	flex-direction: column;
+	gap: var(--raya-space-3);
+	overscroll-behavior: contain;
+}
+
+.raya-msg {
+	max-width: 92%;
+	padding: 10px 12px;
+	border-radius: 12px;
+	font-size: 13px;
+	line-height: 1.8;
+	word-wrap: break-word;
+}
+
+.raya-msg--user {
+	align-self: flex-start;
+	background: var(--raya-teal);
+	color: #fff;
+	border-start-start-radius: 4px;
+}
+
+.raya-msg--assistant {
+	align-self: flex-end;
+	background: var(--control-bg);
+	border-start-end-radius: 4px;
+	width: 92%;
+}
+
+.raya-msg--system {
+	align-self: center;
+	font-size: 11.5px;
+	color: var(--text-muted);
+	padding: 2px 10px;
+	background: transparent;
+}
+
+.raya-msg--error {
+	align-self: stretch;
+	background: #fde8e6;
+	color: var(--raya-danger);
+}
+
+html[data-theme="dark"] .raya-msg--error {
+	background: rgba(192, 57, 43, 0.18);
+	color: #f19a90;
+}
+
+.raya-msg .raya-table-wrap {
+	margin-top: 8px;
+	background: var(--card-bg);
+}
+
+.raya-msg dl {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	gap: 4px 12px;
+	margin: 8px 0 0;
+	font-size: 12.5px;
+}
+
+.raya-msg dt {
+	color: var(--text-muted);
+	font-weight: 500;
+}
+
+.raya-msg dd {
+	margin: 0;
+	font-weight: 600;
+}
+
+.raya-msg-actions {
+	display: flex;
+	gap: var(--raya-space-2);
+	margin-top: 10px;
+	flex-wrap: wrap;
+}
+
+.raya-confirm {
+	border: 1px solid var(--raya-teal);
+	background: var(--card-bg);
+	border-radius: 12px;
+	padding: 12px;
+	margin-top: 4px;
+}
+
+.raya-confirm-title {
+	font-weight: 700;
+	margin-bottom: 4px;
+}
+
+.raya-confirm-meta {
+	font-size: 11.5px;
+	color: var(--text-muted);
+	margin-top: 6px;
+}
+
+.raya-composer {
+	border-top: 1px solid var(--border-color);
+	padding: var(--raya-space-3);
+	display: flex;
+	flex-direction: column;
+	gap: var(--raya-space-2);
+	background: var(--card-bg);
+}
+
+.raya-composer-row {
+	display: flex;
+	align-items: flex-end;
+	gap: var(--raya-space-2);
+}
+
+.raya-composer textarea {
+	flex: 1;
+	resize: none;
+	min-height: 44px;
+	max-height: 120px;
+	border-radius: 12px;
+	border: 1px solid var(--border-color);
+	background: var(--control-bg);
+	padding: 10px 12px;
+	font: inherit;
+	font-size: 13.5px;
+	color: var(--text-color);
+}
+
+.raya-composer textarea:focus {
+	outline: none;
+	border-color: var(--raya-teal);
+	box-shadow: 0 0 0 2px rgba(22, 120, 111, 0.18);
+}
+
+.raya-composer .raya-icon-btn {
+	width: 44px;
+	height: 44px;
+	border-radius: 12px;
+}
+
+.raya-mic[data-state="listening"] {
+	background: var(--raya-danger);
+	animation: raya-pulse 1.4s infinite;
+}
+
+@keyframes raya-pulse {
+	0% {
+		box-shadow: 0 0 0 0 rgba(192, 57, 43, 0.45);
+	}
+	100% {
+		box-shadow: 0 0 0 12px rgba(192, 57, 43, 0);
+	}
+}
+
+.raya-listening {
+	display: flex;
+	align-items: center;
+	gap: var(--raya-space-2);
+	font-size: 12.5px;
+	color: var(--raya-danger);
+}
+
+.raya-listening[hidden] {
+	display: none;
+}
+
+.raya-wave {
+	display: inline-flex;
+	gap: 2px;
+	align-items: center;
+	height: 14px;
+}
+
+.raya-wave i {
+	width: 3px;
+	background: currentColor;
+	border-radius: 2px;
+	animation: raya-wave 0.9s infinite ease-in-out;
+}
+
+.raya-wave i:nth-child(2) {
+	animation-delay: 0.15s;
+}
+
+.raya-wave i:nth-child(3) {
+	animation-delay: 0.3s;
+}
+
+@keyframes raya-wave {
+	0%,
+	100% {
+		height: 4px;
+	}
+	50% {
+		height: 14px;
+	}
+}
+
+.raya-composer-foot {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--raya-space-2);
+	font-size: 11px;
+	color: var(--text-muted);
+}
+
+.raya-link-btn {
+	background: none;
+	border: 0;
+	padding: 0;
+	color: var(--raya-teal);
+	cursor: pointer;
+	font: inherit;
+	font-size: 12px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.raya-skeleton,
+	.raya-mic[data-state="listening"],
+	.raya-wave i {
+		animation: none;
+	}
+}
+
+/* ------------------------------------------------------------- responsive */
+
+@media (max-width: 991px) {
+	.raya-row {
+		grid-template-columns: repeat(min(var(--cols, 4), 2), minmax(0, 1fr));
+	}
+
+	.raya-row--stack-md {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}
+
+@media (max-width: 640px) {
+	.raya-row {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	.raya-funnel {
+		grid-template-columns: repeat(5, minmax(72px, 1fr));
+		overflow-x: auto;
+	}
+
+	.raya-funnel-step:not(:last-child)::after {
+		display: none;
+	}
+
+	.raya-card {
+		padding: var(--raya-space-4);
+	}
+
+	/* The assistant becomes a bottom sheet */
+	.raya-panel {
+		left: 0;
+		right: 0;
+		bottom: 0;
+		width: 100%;
+		height: min(82vh, 640px);
+		border-radius: var(--raya-radius) var(--raya-radius) 0 0;
+	}
+
+	.raya-fab {
+		bottom: 16px;
+		right: 16px;
+		width: 52px;
+		height: 52px;
+	}
+}

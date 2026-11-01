@@ -1,0 +1,55 @@
+Branch,شعبه
+Raya Desk Settings,تنظیمات رایا
+Raya Assistant Log,گزارش عملیات دستیار
+Enable Raya Theme,فعال‌سازی پوسته رایا
+Enable Assistant,فعال‌سازی دستیار
+Agent Provider,ارائه‌دهنده ایجنت
+Speech-to-Text Provider,ارائه‌دهنده تبدیل گفتار به متن
+Allow Spoken Replies,اجازه پخش صوتی پاسخ
+Confirmation Expiry (minutes),مهلت تأیید (دقیقه)
+Action Log Retention (days),مدت نگهداری گزارش عملیات (روز)
+No source,بدون منبع
+Raya,رایا
+Details,جزئیات
+Items,اقلام
+More Info,اطلاعات بیشتر
+Connections,ارتباطات
+Home,خانه
+Dashboard,داشبورد
+Reports,گزارش‌ها
+Setup,راه‌اندازی
+Pages,صفحه‌ها
+Search,جست‌وجو
+Notification,اعلان‌ها
+Filter,فیلتر
+Filters,فیلترها
+List View,نمای فهرست
+Created On,تاریخ ایجاد
+Assign,تخصیص
+Dismiss,بستن
+Skip,رد کردن
+Optional,اختیاری
+Enabled,فعال
+Status,وضعیت
+Total,جمع
+Chart of Accounts,سرفصل حساب‌ها
+Create a follow-up for {0} {1},ثبت پیگیری برای {0} {1}
+Follow-up {0} created,پیگیری {0} ثبت شد
+Assign {0} leads between {1} users,تخصیص {0} لید بین {1} کارشناس
+{0} of {1} leads assigned,{0} لید از {1} لید تخصیص یافت
+Follow-up date is in the past,تاریخ پیگیری گذشته است
+Follow-ups can only be added to {0},پیگیری فقط برای این اسناد ثبت می‌شود: {0}
+These users cannot receive leads: {0},این کاربران نمی‌توانند لید دریافت کنند: {0}
+This confirmation is not valid,این تأییدیه معتبر نیست
+This request was already {0},این درخواست قبلاً {0} است
+This confirmation expired; ask again for a fresh preview,مهلت این تأییدیه تمام شده است؛ دوباره درخواست دهید تا پیش‌نمایش تازه بگیرید
+The request changed after preview; ask again for a fresh preview,درخواست پس از پیش‌نمایش تغییر کرده است؛ دوباره درخواست دهید
+The assistant is disabled,دستیار غیرفعال است
+Unknown assistant action,عملیات ناشناخته برای دستیار
+You do not have {0} permission on {1},اجازه {0} روی {1} را ندارید
+You cannot read leads,اجازه مشاهده لیدها را ندارید
+Select at least one source,دست‌کم یک منبع انتخاب کنید
+Say or type a request,درخواست خود را بگویید یا بنویسید
+executed,اجرا شده
+cancelled,لغو شده
+expired,منقضی

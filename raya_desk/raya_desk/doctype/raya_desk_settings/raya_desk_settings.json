@@ -1,0 +1,109 @@
+{
+ "actions": [],
+ "creation": "2026-11-01 12:00:00.000000",
+ "modified": "2026-11-01 12:00:00.000000",
+ "modified_by": "Administrator",
+ "owner": "Administrator",
+ "doctype": "DocType",
+ "name": "Raya Desk Settings",
+ "module": "Raya Desk",
+ "engine": "InnoDB",
+ "custom": 0,
+ "field_order": [
+  "appearance_section",
+  "enable_theme",
+  "assistant_section",
+  "enable_assistant",
+  "agent_provider",
+  "stt_provider",
+  "column_break_tts",
+  "allow_tts",
+  "preview_ttl_minutes",
+  "log_retention_days"
+ ],
+ "fields": [
+  {
+   "fieldname": "appearance_section",
+   "fieldtype": "Section Break",
+   "label": "Appearance"
+  },
+  {
+   "fieldname": "enable_theme",
+   "fieldtype": "Check",
+   "label": "Enable Raya Theme",
+   "default": "1",
+   "description": "Users can still switch it off for themselves with ?raya=off"
+  },
+  {
+   "fieldname": "assistant_section",
+   "fieldtype": "Section Break",
+   "label": "Assistant"
+  },
+  {
+   "fieldname": "enable_assistant",
+   "fieldtype": "Check",
+   "label": "Enable Assistant",
+   "default": "1"
+  },
+  {
+   "fieldname": "agent_provider",
+   "fieldtype": "Select",
+   "label": "Agent Provider",
+   "options": "mock",
+   "default": "mock",
+   "description": "Only the labelled demo provider ships today. Real providers read their keys from site_config, never from this form."
+  },
+  {
+   "fieldname": "stt_provider",
+   "fieldtype": "Select",
+   "label": "Speech-to-Text Provider",
+   "options": "mock\nbrowser",
+   "default": "mock",
+   "description": "browser uses the Web Speech API when the browser offers it and requires HTTPS outside localhost"
+  },
+  {
+   "fieldname": "column_break_tts",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "allow_tts",
+   "fieldtype": "Check",
+   "label": "Allow Spoken Replies",
+   "default": "1",
+   "description": "Each user still has to turn playback on in the assistant panel"
+  },
+  {
+   "fieldname": "preview_ttl_minutes",
+   "fieldtype": "Int",
+   "label": "Confirmation Expiry (minutes)",
+   "default": "10",
+   "non_negative": 1
+  },
+  {
+   "fieldname": "log_retention_days",
+   "fieldtype": "Int",
+   "label": "Action Log Retention (days)",
+   "default": "90",
+   "non_negative": 1
+  }
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "share": 1
+  }
+ ],
+ "links": [],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "row_format": "Dynamic",
+ "issingle": 1,
+ "track_changes": 1
+}
