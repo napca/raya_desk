@@ -7,7 +7,7 @@ export function get_context() {
 	const route = frappe.get_route() || [];
 	const ctx = { route: route.slice(0, 3), view: "other", doctype: null, docname: null, selected: [] };
 
-	if (route[0] === "Form" && window.cur_frm && cur_frm.doctype === route[1]) {
+	if (route[0] === "Form" && window.cur_frm && cur_frm.doctype === route[1] && cur_frm.docname === route[2]) {
 		ctx.view = "form";
 		ctx.doctype = cur_frm.doctype;
 		ctx.docname = cur_frm.docname;
@@ -57,5 +57,5 @@ export function describe_context(ctx) {
 }
 
 export function context_key(ctx) {
-	return [ctx.view, ctx.doctype, ctx.docname, ctx.page].join("|");
+	return [ctx.view, ctx.doctype, ctx.docname, ctx.page, [...(ctx.selected || [])].sort().join(",")].join("|");
 }

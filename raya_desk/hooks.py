@@ -41,7 +41,7 @@ website_context = {
 
 # include js, css files in header of desk.html
 # The theme and assistant are opt-out: Raya Desk Settings, ?raya=off or localStorage "raya_desk_off"
-app_include_css = "raya_desk.bundle.css"
+app_include_css = ["raya_desk.bundle.css", "raya_layout.bundle.css"]
 app_include_js = "raya_desk.bundle.js"
 
 # include js, css files in header of web template

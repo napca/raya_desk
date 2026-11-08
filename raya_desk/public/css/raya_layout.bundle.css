@@ -1,0 +1,164 @@
+/* Structural extensions, loaded after the original theme. No native controls are removed. */
+.raya-shell-nav {
+	position: sticky;
+	top: 0;
+	z-index: 8;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	min-height: 52px;
+	padding: 8px 20px;
+	background: var(--card-bg);
+	border-bottom: 1px solid var(--border-color);
+	flex: none;
+}
+.raya-shell-nav[hidden], .raya-document-info[hidden] { display: none; }
+.raya-shell-links, .raya-shell-actions { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.raya-shell-links { overflow-x: auto; scrollbar-width: thin; }
+.raya-shell-links a {
+	color: var(--text-muted);
+	font-size: 12px;
+	white-space: nowrap;
+	padding: 5px 10px;
+	border-radius: 7px;
+	text-decoration: none;
+}
+.raya-shell-links a[aria-current="page"] { color: var(--primary); background: var(--control-bg); font-weight: 700; }
+.raya-shell-actions { flex: none; }
+.raya-shell-minimal .raya-shell-links { display: none; }
+.raya-document-info {
+	background: var(--control-bg);
+	border: 1px solid var(--border-color);
+	border-radius: 8px;
+	padding: 6px 10px;
+	color: var(--text-color);
+	font: inherit;
+	font-size: 12px;
+	cursor: pointer;
+}
+html.raya-has-shell .page-head { top: 52px; }
+.raya-shell-nav .raya-fab {
+	position: static;
+	display: flex;
+	gap: 8px;
+	width: auto;
+	color: #fff;
+	height: 34px;
+	padding-inline: 12px;
+	box-shadow: none;
+	border-radius: 8px;
+}
+.raya-shell-nav .raya-fab svg { width: 18px; height: 18px; }
+.raya-shell-nav .raya-fab[hidden] { display: none; }
+
+/* A dock reserves space; the non-docked version is an explicit modal surface. */
+html.raya-assistant-docked .main-section { margin-inline-end: 384px; min-width: 0; }
+.raya-panel {
+	inset-inline-end: 12px;
+	inset-inline-start: auto;
+	top: 12px;
+	bottom: 12px;
+	width: 360px;
+	height: auto;
+	max-height: calc(100dvh - 24px);
+	z-index: 1041;
+}
+html.raya-assistant-modal .raya-panel {
+	inset: 12px;
+	width: min(560px, calc(100vw - 24px));
+	margin-inline: auto;
+}
+.raya-panel-backdrop { position: fixed; inset: 0; background: rgba(8, 19, 32, 0.52); z-index: 1040; }
+.raya-panel-backdrop[hidden] { display: none; }
+html.raya-assistant-modal body { overflow: hidden; }
+
+/* Adapt to the actual remaining form width, including when the assistant is docked. */
+html.raya-theme body[data-route^="Form"] .layout-main-section-wrapper { container: raya-form / inline-size; min-width: 0; }
+html.raya-theme body[data-route^="Form"] .std-form-layout .section-body {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+	gap: 0 16px;
+}
+html.raya-theme body[data-route^="Form"] .std-form-layout .section-body > .form-column {
+	width: auto;
+	max-width: none;
+	min-width: 0;
+}
+html.raya-theme body[data-route^="Form"] .std-form-layout .section-body > .form-column.col-sm-12 { grid-column: 1 / -1; }
+html.raya-theme body[data-route^="Form"] .raya-meta-collapsed .layout-side-section { display: none; }
+html.raya-theme body[data-route^="Form"] .raya-meta-collapsed .layout-main-section-wrapper { flex: 1 1 100%; width: 100%; }
+@container raya-form (max-width: 520px) {
+	html.raya-theme .std-form-layout .section-body { grid-template-columns: minmax(0, 1fr); }
+}
+html.raya-theme .form-grid-container, html.raya-theme .raya-table-wrap { max-width: 100%; min-width: 0; }
+html.raya-theme .raya-table-wrap { overscroll-behavior-inline: contain; scrollbar-width: thin; }
+html.raya-theme .raya-msg { min-width: 0; }
+html.raya-theme .raya-msg dd { overflow-wrap: anywhere; min-width: 0; }
+
+.raya-date-hint { display: block; font-size: 11px; color: var(--text-muted); margin-block-start: 5px; line-height: 1.8; }
+.raya-date-hint[hidden] { display: none; }
+.raya-dual-date { display: inline-flex; flex-direction: column; gap: 1px; line-height: 1.3; max-width: 100%; vertical-align: middle; }
+.raya-dual-date small { font-size: 10px; color: var(--text-muted); }
+/* Virtual report rows have a fixed height. Keep their date on one line;
+   the Gregorian equivalent remains in the date's native title tooltip. */
+.dt-cell__content .raya-dual-date { display: inline; line-height: inherit; white-space: nowrap; }
+.dt-cell__content .raya-dual-date small { display: none; }
+
+/* Dark surfaces use the host theme's palette, not light-brand constants. */
+html.raya-theme[data-theme="dark"] {
+	--raya-card: var(--card-bg);
+	--raya-ink: var(--text-color);
+	--raya-ink-2: var(--text-color);
+	--raya-ink-3: var(--text-muted);
+	--raya-line: var(--border-color);
+	--raya-line-strong: var(--border-color);
+	--raya-teal-soft: #183c38;
+	--raya-teal-tint: #172e2b;
+}
+html.raya-theme[data-theme="dark"] .form-section .section-head { color: var(--text-color); }
+html.raya-theme[data-theme="dark"] .raya-panel, html.raya-theme[data-theme="dark"] .raya-shell-nav { background: var(--card-bg); }
+html.raya-theme[data-theme="dark"] .raya-chip, html.raya-theme[data-theme="dark"] .raya-link-btn { color: #7fd6ca; }
+html.raya-theme[data-theme="dark"] .list-row-container:hover > .list-row { background: var(--control-bg); }
+html.raya-theme[data-theme="dark"] .raya-msg--user { background: #11635b; color: #fff; }
+html.raya-theme[data-theme="dark"] .raya-msg--assistant { color: var(--text-color); }
+html.raya-theme[data-theme="dark"] .raya-delta-up { color: #79d6aa; }
+html.raya-theme[data-theme="dark"] .raya-delta-down { color: #ffa8a0; }
+html.raya-theme[data-theme="dark"] .btn-primary:hover,
+html.raya-theme[data-theme="dark"] .es-button[data-variant="solid"]:not(:disabled):hover { background: #11635b; border-color: #11635b; }
+
+@media (max-width: 1439px) {
+	html.raya-theme body[data-route^="Form"] .layout-main { flex-wrap: wrap; }
+	html.raya-theme body[data-route^="Form"] .layout-main .layout-side-section {
+		flex: 1 0 100%; width: 100%; min-width: 0; height: auto; max-height: 300px; position: static; order: -1;
+		border: 1px solid var(--border-color); border-radius: 12px; background: var(--card-bg); padding: 16px; margin-block-end: 16px;
+	}
+	html.raya-theme body[data-route^="Form"] .layout-main .form-sidebar { width: auto; }
+	html.raya-theme body[data-route^="Form"] .layout-main-section-wrapper { flex: 1 1 100%; width: 100%; }
+}
+@media (min-width: 1440px) {
+	html.raya-assistant-docked body[data-route^="Form"] .layout-main .layout-side-section { flex: 0 0 180px; min-width: 180px; }
+	html.raya-assistant-docked body[data-route^="Form"] .form-sidebar { width: 180px; }
+}
+@media (max-width: 767.98px) {
+	/* Pinned report columns can be wider than the entire phone. Let every
+	   column participate in the table's own horizontal scroll at this size. */
+	html.raya-theme .datatable .dt-cell--sticky {
+		position: relative !important;
+		left: auto !important;
+		right: auto !important;
+		transform: none !important;
+	}
+	.raya-shell-nav { padding: 8px 12px; gap: 6px; }
+	.raya-shell-links a { padding-inline: 7px; font-size: 11px; }
+	.raya-shell-actions { gap: 4px; }
+	.raya-document-info { padding-inline: 7px; font-size: 11px; }
+	html.raya-theme .raya-shell-nav .raya-fab { width: 34px; padding: 6px; }
+	html.raya-theme .raya-shell-nav .raya-fab > span { display: none; }
+	html.raya-assistant-modal .raya-panel { inset: 0; width: 100%; max-height: 100dvh; border-radius: 0; }
+	.raya-composer { padding-bottom: max(12px, env(safe-area-inset-bottom)); }
+}
+@media print {
+	.raya-shell-nav, .raya-panel, .raya-panel-backdrop { display: none; }
+	html.raya-assistant-docked .main-section { margin-inline-end: 0; }
+}

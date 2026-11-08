@@ -77,11 +77,11 @@ class RayaDashboard {
 				}<span class="raya-branch-select"></span></div>
 			</div>
 			<div class="raya-card raya-hero-card" style="padding:0">
+				<div class="raya-hero-heading"><div><h3 class="raya-card-title">دستیار رایا</h3><p class="raya-card-sub">درخواستتان را بنویسید یا با میکروفن شروع کنید</p></div><span class="raya-hero-status"></span></div>
 				<form class="raya-hero" autocomplete="off">
 					<button type="button" class="raya-icon-btn raya-hero-mic" title="شروع صحبت با رایا" aria-label="شروع صحبت با رایا">${core.ICONS.mic}</button>
 					<input class="raya-hero-input" type="text" aria-label="درخواست از رایا"
-						placeholder="با رایا صحبت کنید یا درخواستتان را بنویسید">
-					<span class="raya-hero-status"></span>
+						placeholder="درخواستتان را بنویسید…">
 					<button type="submit" class="raya-icon-btn raya-icon-btn--ghost" title="ارسال" aria-label="ارسال">${core.ICONS.send}</button>
 				</form>
 				<div class="raya-chips" style="padding:0 16px 14px">
@@ -96,7 +96,7 @@ class RayaDashboard {
 			</div>
 			<section class="raya-card raya-card--dark" aria-labelledby="raya-mkt">
 				<div class="raya-card-head">
-					<div><h3 class="raya-card-title" id="raya-mkt">مارکتینگ</h3><div class="raya-card-sub">مسیر لید تا قرارداد</div></div>
+					<div><h3 class="raya-card-title" id="raya-mkt">مسیر فروش</h3><div class="raya-card-sub">از ورود لید تا ثبت قرارداد</div></div>
 					<span class="raya-period-badge"></span>
 				</div>
 				<div class="raya-funnel-body"></div>
@@ -158,7 +158,14 @@ class RayaDashboard {
 		this.$body.on("click", ".raya-funnel-step[data-route]", (e) => {
 			frappe.set_route($(e.currentTarget).data("route").split("|"));
 		});
+		this.$body.on("keydown", ".raya-funnel-step[data-route]", (e) => {
+			if (e.key === "Enter" || e.key === " ") {
+				e.preventDefault();
+				$(e.currentTarget).trigger("click");
+			}
+		});
 		this.update_hero_status();
+		$(document).off("raya-assistant-state.rayaDashboard").on("raya-assistant-state.rayaDashboard", (_event, label) => this.update_hero_status(label));
 	}
 
 	ask(text) {
@@ -171,13 +178,13 @@ class RayaDashboard {
 		frappe.msgprint("دستیار در تنظیمات Raya Desk غیرفعال است.");
 	}
 
-	update_hero_status() {
+	update_hero_status(label) {
 		const { core, ui } = window.raya;
 		const cfg = core.boot_config();
 		const parts = [];
 		if (!window.raya.assistant) parts.push("دستیار غیرفعال");
 		else {
-			parts.push("دستیار آماده");
+			parts.push(label || "دستیار آماده");
 			if (cfg.agent_provider === "mock") parts.push(ui.badge("نمایشی", "demo"));
 		}
 		this.$body.find(".raya-hero-status").html(parts.join(" "));
@@ -242,6 +249,9 @@ class RayaDashboard {
 		this.$body.find(".raya-period-badge").html(ui.badge(`${d.period_label} · ${range}`, "muted"));
 
 		// Funnel
+		const permitted = FUNNEL.filter((step) => d.funnel[step.key].permitted);
+		const empty = permitted.length > 0 && permitted.every((step) => !d.funnel[step.key].value);
+		this.$body.find(".raya-funnel-body").closest("section").toggleClass("raya-funnel-empty", empty);
 		this.$body.find(".raya-funnel-body").html(`<div class="raya-funnel">${FUNNEL.map((s) => {
 			const m = d.funnel[s.key];
 			const note = !m.permitted ? "دسترسی ندارید" : d.branch && !m.branch_applied ? "بدون فیلتر شعبه" : "";
@@ -252,12 +262,15 @@ class RayaDashboard {
 				<div class="raya-funnel-value">${m.permitted ? core.num(m.value) : "—"}</div>
 				${note ? `<div class="raya-funnel-note">${note}</div>` : ""}
 			</div>`;
-		}).join("")}</div>`);
+		}).join("")}</div>${empty ? '<p class="raya-funnel-empty-note">در این بازه فعالیتی ثبت نشده است. بازه یا شعبه را تغییر دهید، یا از فهرست لیدها شروع کنید.</p>' : ""}`);
 
 		// Sales cards
 		const s = d.sales;
 		const cur = s.current;
 		const avg = cur.permitted && cur.count ? cur.total / cur.count : null;
+		const currency = core.boot_config().currency || frappe.boot.sysdefaults.currency || "";
+		const unit = currency === "IRR" ? "ریال" : currency;
+		const unit_label = unit ? ` (${unit})` : "";
 		const contracts = d.funnel.contracts;
 		this.$body.find(".raya-sales-body").html(
 			[
@@ -268,14 +281,14 @@ class RayaDashboard {
 					permitted: cur.permitted,
 				}),
 				ui.stat_card({
-					label: "مبلغ فروش",
-					value: core.money(cur.total),
+					label: "مبلغ فروش" + unit_label,
+					value: core.num(cur.total),
 					foot: ui.delta(s.total_change),
 					permitted: cur.permitted,
 				}),
 				ui.stat_card({
-					label: "میانگین هر فاکتور",
-					value: avg == null ? "—" : core.money(avg),
+					label: "میانگین هر فاکتور" + unit_label,
+					value: avg == null ? "—" : core.num(avg),
 					foot: `<span class="raya-stat-foot">مبلغ فروش ÷ تعداد فاکتور</span>`,
 					permitted: cur.permitted,
 				}),

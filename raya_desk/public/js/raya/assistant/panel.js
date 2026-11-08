@@ -5,6 +5,7 @@ import { boot_config, esc, ICONS, jdate, money, num, pct, set_user_disabled, sto
 import { badge, table } from "../ui";
 import { BrowserTextToSpeech, executor, make_stt, ServerAgent } from "./adapters";
 import { context_key, describe_context, get_context } from "./context";
+import { suggestions_for } from "./suggestions";
 import { LABELS, Machine } from "./machine";
 
 export class Assistant {
@@ -30,8 +31,9 @@ export class Assistant {
 		const logo = esc(this.config.logo_mark);
 		this.$fab = $(`<button type="button" class="raya-fab" aria-haspopup="dialog" aria-expanded="false"
 				aria-label="دستیار رایا" title="دستیار رایا (Ctrl+Shift+K)">
-				<img src="${logo}" alt="">
-			</button>`).appendTo(document.body);
+				${ICONS.mic}<span>دستیار رایا</span>
+			</button>`).appendTo(".raya-shell-actions");
+		this.$backdrop = $('<div class="raya-panel-backdrop" aria-hidden="true" hidden></div>').appendTo(document.body);
 
 		this.$panel = $(`<section class="raya-panel" role="dialog" aria-modal="false" aria-labelledby="raya-panel-title" hidden>
 			<header class="raya-panel-head">
@@ -41,9 +43,9 @@ export class Assistant {
 					<div class="raya-panel-state" aria-live="polite"></div>
 				</div>
 				<span class="spacer"></span>
-				<button type="button" class="raya-tts" aria-pressed="false" title="پخش صوتی پاسخ‌ها">${ICONS.volume}</button>
-				<button type="button" class="raya-clear" title="پاک کردن گفتگو">${ICONS.trash}</button>
-				<button type="button" class="raya-close" title="بستن">${ICONS.close}</button>
+					<button type="button" class="raya-tts" aria-pressed="false" aria-label="پخش صوتی پاسخ‌ها" title="پخش صوتی پاسخ‌ها">${ICONS.volume}</button>
+					<button type="button" class="raya-clear" aria-label="پاک کردن گفتگو" title="پاک کردن گفتگو">${ICONS.trash}</button>
+					<button type="button" class="raya-close" aria-label="بستن دستیار" title="بستن">${ICONS.close}</button>
 			</header>
 			<div class="raya-context" aria-live="polite"></div>
 			<div class="raya-messages" role="log" aria-live="polite"></div>
@@ -57,8 +59,8 @@ export class Assistant {
 				<div class="raya-composer-row">
 					<textarea rows="1" aria-label="درخواست خود را بنویسید"
 						placeholder="با رایا صحبت کنید یا درخواستتان را بنویسید"></textarea>
-					<button type="button" class="raya-icon-btn raya-icon-btn--ghost raya-mic" title="شروع صحبت">${ICONS.mic}</button>
-					<button type="button" class="raya-icon-btn raya-send" title="ارسال">${ICONS.send}</button>
+					<button type="button" class="raya-icon-btn raya-icon-btn--ghost raya-mic" aria-label="شروع صحبت" title="شروع صحبت">${ICONS.mic}</button>
+					<button type="button" class="raya-icon-btn raya-send" aria-label="ارسال درخواست" title="ارسال">${ICONS.send}</button>
 				</div>
 				<div class="raya-composer-foot">
 					<span class="raya-provider"></span>
@@ -90,12 +92,15 @@ export class Assistant {
 			"assistant",
 			`<div>سلام! درباره صفحه‌ای که باز است بپرسید یا درخواستتان را بگویید.</div>
 			${this.config.agent_provider === "mock" ? `<div class="raya-confirm-meta">${badge("نمایشی", "demo")} پاسخ‌ها از قواعد ساده نمایشی می‌آیند، نه از مدل زبانی. داده‌ها و عملیات واقعی هستند و تغییرات فقط پس از تأیید شما انجام می‌شوند.</div>` : ""}
-			<div class="raya-chips" style="margin-top:8px">
-				${["این فاکتور را توضیح بده", "لیدهایی که سه روز پیگیری نشده‌اند را بیاور", "فروش این ماه را نشان بده"]
-					.map((t) => `<button type="button" class="raya-chip" data-text="${esc(t)}">${esc(t)}</button>`)
-					.join("")}
-			</div>`
+			<div class="raya-welcome-suggestions raya-chips" style="margin-top:8px"></div>`
 		);
+		this.update_suggestions(get_context());
+	}
+
+	update_suggestions(ctx) {
+		const suggestions = suggestions_for(ctx, (dt) => frappe.model.can_read(dt), (dt) => frappe.model.can_write(dt));
+		this.$messages.find(".raya-welcome-suggestions").html(suggestions
+			.map((text) => `<button type="button" class="raya-chip" data-text="${esc(text)}">${esc(text)}</button>`).join(""));
 	}
 
 	add(kind, html) {
@@ -112,6 +117,7 @@ export class Assistant {
 	on_state(to) {
 		if (!this.$panel) return;
 		this.$state.text(LABELS[to] || to);
+		$(document).trigger("raya-assistant-state", [LABELS[to] || to]);
 		this.$fab.attr("data-state", to);
 		this.$mic.attr("data-state", to);
 		const listening = to === "listening" || to === "requesting-permission" || to === "transcribing";
@@ -133,6 +139,7 @@ export class Assistant {
 
 	bind() {
 		this.$fab.on("click", () => this.toggle());
+		this.$backdrop.on("click", () => this.toggle(false));
 		this.$panel.find(".raya-close").on("click", () => this.toggle(false));
 		this.$panel.find(".raya-clear").on("click", () => this.clear());
 		this.$panel.find(".raya-cancel").on("click", () => this.cancel("لغو شد."));
@@ -156,6 +163,12 @@ export class Assistant {
 		});
 		this.$input.on("input", () => this.autosize());
 		this.$panel.on("keydown", (e) => {
+			if (e.key === "Tab" && this.$panel.attr("aria-modal") === "true") {
+				const $items = this.$panel.find('button:enabled, textarea:enabled, a[href], input:enabled').filter(":visible");
+				const first = $items[0], last = $items[$items.length - 1];
+				if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last?.focus(); }
+				else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first?.focus(); }
+			}
 			if (e.key !== "Escape") return;
 			if (this.machine.is_busy()) this.cancel("لغو شد.");
 			else this.toggle(false);
@@ -167,7 +180,13 @@ export class Assistant {
 			this.send();
 		});
 
-		frappe.router.on("change", () => setTimeout(() => this.refresh_context(), 300));
+		frappe.router.on("change", () => {
+			if (this.machine.state !== "executing") this.cancel();
+			setTimeout(() => this.refresh_context(), 300);
+		});
+		$(document).on("form-refresh.rayaAssistant page-change.rayaAssistant", () => this.refresh_context());
+		this.desktop_layout = window.matchMedia("(min-width: 1280px)");
+		this.desktop_layout.addEventListener("change", () => this.apply_layout());
 		// List selection changes update the context line without polling
 		$(document).on("change", ".list-row-checkbox, .list-check-all", () => setTimeout(() => this.refresh_context(), 50));
 
@@ -185,6 +204,8 @@ export class Assistant {
 		const show = open === undefined ? this.$panel.prop("hidden") : open;
 		this.$panel.prop("hidden", !show);
 		this.$fab.attr("aria-expanded", String(show));
+		this.$fab.prop("hidden", show);
+		this.apply_layout();
 		if (show) {
 			this.refresh_context();
 			setTimeout(() => this.$input.trigger("focus"), 50);
@@ -194,6 +215,24 @@ export class Assistant {
 			this.stop_speaking();
 			this.$fab.trigger("focus");
 		}
+	}
+
+	apply_layout() {
+		const open = !this.$panel.prop("hidden");
+		const modal = open && !this.desktop_layout.matches;
+		document.documentElement.classList.toggle("raya-assistant-docked", open && !modal);
+		document.documentElement.classList.toggle("raya-assistant-modal", modal);
+		this.$panel.attr("aria-modal", String(modal));
+		this.$backdrop.prop("hidden", !modal);
+		// Restore only inert states that this panel itself introduced.
+		for (const el of this.inert_nodes || []) el.inert = false;
+		this.inert_nodes = [];
+		if (modal) {
+			for (const el of document.querySelectorAll(".main-section, .body-sidebar-container, #desk-dock")) {
+				if (!el.inert) { el.inert = true; this.inert_nodes.push(el); }
+			}
+		}
+		window.raya.shell?.update();
 	}
 
 	open_with(text) {
@@ -220,8 +259,12 @@ export class Assistant {
 		const ctx = get_context();
 		const key = context_key(ctx);
 		const d = describe_context(ctx);
+		this.update_suggestions(ctx);
 		this.$context.html(`<span>زمینه:</span> <strong>${esc(d.label)}</strong> <span>${esc(d.value)}</span>`);
 		if (!initial && key !== this.ctx_key && this.ctx_key !== null) {
+			if (this.machine.is_busy() && this.machine.state !== "executing") {
+				this.cancel("زمینه تغییر کرد؛ درخواست قبلی لغو شد.");
+			}
 			if (this.pending) {
 				this.cancel_pending("صفحه عوض شد؛ درخواست در انتظار تأیید لغو شد.");
 			} else if (this.$messages.children().length > 1) {
@@ -307,9 +350,9 @@ export class Assistant {
 		const text = (this.$input.val() || "").trim();
 		if (!text || this.machine.is_busy()) return;
 		if (this.pending) this.cancel_pending("درخواست قبلی کنار گذاشته شد.");
+		const ctx = this.refresh_context();
 		if (!this.machine.to("thinking")) return;
 		const turn = this.machine.turn;
-		const ctx = this.refresh_context();
 		this.last_request = text;
 		this.$input.val("");
 		this.autosize();

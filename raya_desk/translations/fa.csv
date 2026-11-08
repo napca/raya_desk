@@ -53,3 +53,141 @@ Say or type a request,درخواست خود را بگویید یا بنویسی�
 executed,اجرا شده
 cancelled,لغو شده
 expired,منقضی
+Raya Desk,رایا فراز
+Your workspace,فضای کاری شما
+Choose an application to continue,برای شروع برنامهٔ موردنظر را انتخاب کنید
+Step {0} of {1},مرحلهٔ {0} از {1}
+A little about you,کمی دربارهٔ شما
+A few quick questions so we can set things up the way you work.,با چند پرسش کوتاه فضای کاری را متناسب با نیاز شما آماده می‌کنیم.
+What kind of work do you do?,در چه زمینه‌ای فعالیت می‌کنید؟
+Who are you setting this up for?,این فضا را برای چه کسی راه‌اندازی می‌کنید؟
+How big is the team?,تیم شما چند نفر است؟
+What do you use today?,اکنون از چه نرم‌افزاری استفاده می‌کنید؟
+Select the modules that you plan to implement,ماژول‌های موردنیاز خود را انتخاب کنید
+Notifications,اعلان‌ها
+Continue,ادامه
+Back,بازگشت
+Settings,تنظیمات
+Purchase Invoice,فاکتور خرید
+Sales Invoice,فاکتور فروش
+Accounts,حسابداری
+Add {0},افزودن {0},Primary action in list view
+Add,افزودن
+No {0} created,هنوز {0} ثبت نشده است
+No {0} found,هیچ {0} با این فیلترها پیدا نشد
+Create,ایجاد
+Import,ورود اطلاعات
+Documentation,راهنما
+A bill from a supplier for what you bought.,فاکتور تأمین‌کننده برای کالاها یا خدمات خریداری‌شده.
+Get Started,شروع راه‌اندازی
+Let's give your business a home.,فضای کاری کسب‌وکارتان را آماده کنیم.
+Let's get the basics right,تنظیمات پایه را مشخص کنید
+"These set how dates, numbers and money look across the app.",این تنظیمات نحوه نمایش تاریخ و اعداد و مبالغ را تعیین می‌کنند.
+Language,زبان
+Country,کشور
+Time Zone,منطقه زمانی
+Currency,واحد پول
+Select Time Zone,انتخاب منطقه زمانی
+Select Currency,انتخاب واحد پول
+Toggle Theme,تغییر حالت نمایش
+Manufacturing,تولید
+Stock,انبار
+Project Management,مدیریت پروژه
+Accounting,حسابداری
+Create your account,حساب کاربری خود را بسازید
+You'll use these details to sign in.,برای ورود از این مشخصات استفاده خواهید کرد.
+Full Name,نام و نام خانوادگی
+Email,ایمیل
+Password,رمز عبور
+Submit,ثبت نهایی
+Submit this document to confirm,برای تأیید سند آن را ثبت نهایی کنید
+Draft,پیش‌نویس
+Submitted,ثبت نهایی شده
+Cancelled,لغو شده
+Preview,پیش‌نمایش
+Item,کالا یا خدمت
+Warehouse,انبار
+Add row,افزودن ردیف
+Add multiple,افزودن چند مورد
+Download,دریافت فایل
+Upload,بارگذاری
+No rows,هنوز ردیفی اضافه نشده است
+Attachments,پیوست‌ها
+Add attachment,افزودن پیوست
+Tags,برچسب‌ها
+Add Tags,افزودن برچسب
+Share,اشتراک‌گذاری
+Comments,دیدگاه‌ها
+Activity,فعالیت‌ها
+New Email,ایمیل جدید
+Load More,نمایش بیشتر
+Clear all filters,پاک کردن همه فیلترها
+Retail,خرده‌فروشی
+Wholesale / Distribution,عمده‌فروشی و توزیع
+E-commerce,تجارت الکترونیک
+Services / Consulting,خدمات و مشاوره
+Construction / Real Estate,ساخت‌وساز و املاک
+Technology / Software,فناوری و نرم‌افزار
+Healthcare,سلامت
+Food & Beverage,غذا و نوشیدنی
+Other,سایر
+My own business,کسب‌وکار خودم
+A company I work for,شرکتی که در آن کار می‌کنم
+A client I'm consulting for,یکی از مشتریان مشاوره‌ام
+Excel / Spreadsheets,اکسل و صفحات گسترده
+Nothing yet - starting fresh,هنوز نرم‌افزاری ندارم
+Save,ذخیره
+Action,عملیات
+Actions,عملیات
+Salutation,عنوان خطاب
+First Name,نام
+Middle Name,نام میانی
+Last Name,نام خانوادگی
+Gender,جنسیت
+Website,وب‌سایت
+Mobile No,شماره همراه
+Phone,تلفن
+Fax,نمابر
+Campaign,کمپین
+Client,مشتری
+Open,باز
+Replied,پاسخ داده شده
+All applications,همه برنامه‌ها
+Raya dashboard,داشبورد رایا
+Selling workspace,فضای فروش
+Customers,مشتریان
+Leads,لیدها
+Raya navigation,ناوبری رایا
+Document information,اطلاعات سند
+Profile,پروفایل
+Appearance,ظاهر
+Preferences,ترجیحات
+Lists,فهرست‌ها
+Forms,فرم‌ها
+Session Defaults,پیش‌فرض‌های نشست
+Keyboard Shortcuts,میان‌برهای صفحه‌کلید
+Manage Dock,مدیریت نوار برنامه‌ها
+Reload,بازخوانی
+Logout,خروج
+Theme,پوسته
+Theme and layout preferences.,تنظیمات پوسته و چیدمان.
+"Switch between light, dark, or system theme.",پوسته روشن، تاریک یا مطابق تنظیمات سیستم را انتخاب کنید.
+Automatic,خودکار
+Light,روشن
+Dark,تاریک
+Layout,چیدمان
+Choose whether forms should be displayed in compact or full width.,نمایش فرم‌ها را به‌صورت فشرده یا تمام‌عرض انتخاب کنید.
+Compact,فشرده
+Full Width,تمام‌عرض
+Dock,نوار برنامه‌ها
+"Keep the app dock beside the sidebar, or let it slide in from the left edge.",نوار برنامه‌ها را کنار منو ثابت نگه دارید یا به‌صورت شناور نمایش دهید.
+Pinned,ثابت
+Floating,شناور
+Theme Changed,پوسته تغییر کرد
+Type,نوع
+No.,ردیف
+Totals,جمع مبالغ
+Today,امروز
+Username,نام کاربری
+Change Password,تغییر گذرواژه
+Manage your profile information and display picture.,اطلاعات پروفایل و تصویر کاربری را مدیریت کنید.

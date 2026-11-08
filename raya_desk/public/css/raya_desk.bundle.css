@@ -37,7 +37,7 @@
 	--raya-line-strong: #cfdbd7;
 	--raya-ink: #12263d;
 	--raya-ink-2: #4a5b6e;
-	--raya-ink-3: #7a8999;
+	--raya-ink-3: #596b7c;
 	--raya-danger: #c0392b;
 	--raya-warning: #b7791f;
 	--raya-success: #1f8a5b;
@@ -82,7 +82,6 @@ html.raya-theme:not([data-theme="dark"]) {
 	--border-primary: var(--raya-teal);
 	--sidebar-select-color: var(--raya-teal-soft);
 	--ink-blue-link: var(--raya-teal);
-	--surface-gray-10: var(--raya-teal);
 }
 
 html.raya-theme[data-theme="dark"] {
@@ -1369,4 +1368,363 @@ html[data-theme="dark"] .raya-msg--error {
 		width: 52px;
 		height: 52px;
 	}
+}
+
+/* Shared Desk refinement. Logical geometry works with both compiled RTL and LTR assets. */
+html.raya-theme {
+	--sidebar-width: 236px;
+	--raya-control-height: 36px;
+}
+
+html.raya-theme .page-head {
+	padding-inline: 24px;
+	min-height: 64px;
+}
+
+html.raya-theme .page-head .title-text {
+	font-size: 18px;
+	line-height: 1.5;
+}
+
+html.raya-theme .page-container .page-body {
+	padding: 20px 24px 88px;
+}
+
+html.raya-theme .page-container .layout-main-section-wrapper,
+html.raya-theme .page-container .layout-main-section {
+	min-width: 0;
+}
+
+html.raya-theme .body-sidebar {
+	--desk-sidebar-bg: var(--raya-navy);
+	--surface-gray-2: var(--raya-navy-3);
+	--text-muted: #aebfd0;
+	--ink-gray-5: #aebfd0;
+	font-size: 13px;
+}
+
+html.raya-theme .body-sidebar .standard-sidebar-item {
+	margin-block: 3px;
+	min-height: 34px;
+	box-shadow: none;
+}
+
+html.raya-theme .body-sidebar .sidebar-item-label {
+	line-height: 1.6;
+}
+
+html.raya-theme .body-sidebar .sidebar-header {
+	min-height: 64px;
+	border-bottom: 1px solid #ffffff14;
+	margin-bottom: 12px;
+}
+
+html.raya-theme .body-sidebar .standard-sidebar-item.active-sidebar {
+	box-shadow: none;
+}
+
+html.raya-theme .frappe-control .control-label {
+	font-size: 13px;
+	font-weight: 500;
+	line-height: 1.7;
+	margin-bottom: 6px;
+}
+
+html.raya-theme .frappe-control input.form-control:not([type="checkbox"]),
+html.raya-theme .frappe-control select.form-control {
+	min-height: var(--raya-control-height);
+	border: 1px solid var(--border-color);
+	padding-inline: 10px;
+}
+
+html.raya-theme .frappe-control textarea.form-control {
+	border: 1px solid var(--border-color);
+	padding: 10px 12px;
+}
+
+html.raya-theme .form-layout > .form-section {
+	padding: 20px 24px;
+}
+
+html.raya-theme .form-section .section-head {
+	font-size: 15px;
+	line-height: 1.6;
+}
+
+html.raya-theme .form-grid .grid-heading-row {
+	min-height: 38px;
+}
+
+html.raya-theme .frappe-list .list-filters {
+	padding: 16px;
+	border-bottom: 1px solid var(--border-color);
+}
+
+html.raya-theme .standard-filter-section {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	align-items: center;
+}
+
+html.raya-theme .standard-filter-section .form-group {
+	margin: 0;
+}
+
+html.raya-theme .list-row,
+html.raya-theme .list-row-head {
+	min-height: 44px;
+	align-items: center;
+}
+
+html.raya-theme .frappe-list .no-result {
+	padding: 64px 24px;
+	min-height: 320px;
+	max-height: 440px;
+}
+
+/* Current Frappe uses Espresso buttons, alongside legacy .btn controls. */
+html.raya-theme .es-button {
+	border-radius: 9px;
+	font-family: inherit;
+}
+
+html.raya-theme .es-button[data-variant="solid"]:not(:disabled) {
+	background-color: var(--raya-teal);
+	border-color: var(--raya-teal);
+	color: #fff;
+	--icon-stroke: #fff;
+}
+
+html.raya-theme .es-button[data-variant="solid"]:not(:disabled):hover {
+	background-color: var(--raya-teal-strong);
+}
+
+html.raya-theme .es-button:focus-visible,
+html.raya-theme .raya-icon-btn:focus-visible,
+html.raya-theme .raya-fab:focus-visible,
+html.raya-theme .raya-funnel-step:focus-visible {
+	outline: 2px solid var(--raya-teal);
+	outline-offset: 3px;
+}
+
+html.raya-theme .frappe-list .no-result .btn {
+	margin: 4px;
+}
+
+html.raya-theme .raya-page {
+	padding-top: 0;
+	gap: 20px;
+}
+
+html.raya-theme .raya-hero-heading {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 12px;
+	padding: 20px 20px 0;
+}
+
+html.raya-theme .raya-hero-heading p {
+	margin: 4px 0 0;
+}
+
+html.raya-theme .raya-hero {
+	margin: 16px 20px 12px;
+	padding: 8px;
+	border: 1px solid var(--raya-line-strong);
+	border-radius: 12px;
+	background: var(--control-bg);
+}
+
+html.raya-theme .raya-hero-input {
+	min-width: 0;
+	font-size: 14px;
+	color: var(--text-color);
+}
+
+html.raya-theme .raya-hero-input::placeholder {
+	color: var(--raya-ink-3);
+}
+
+html.raya-theme .raya-funnel {
+	padding: 8px 0 0;
+}
+
+html.raya-theme .raya-funnel-empty .raya-hex {
+	width: 36px;
+	height: 36px;
+}
+
+html.raya-theme .raya-funnel-empty .raya-funnel-step::after {
+	top: 18px;
+}
+
+html.raya-theme .raya-funnel-empty .raya-funnel-value {
+	font-size: 18px;
+}
+
+html.raya-theme .raya-funnel-empty-note {
+	margin: 16px 0 0;
+	color: #c8d4e2;
+	font-size: 13px;
+	text-align: center;
+}
+
+html.raya-theme .raya-stat-value {
+	font-size: clamp(20px, 2vw, 28px);
+	line-height: 1.5;
+	overflow-wrap: anywhere;
+}
+
+html.raya-theme .raya-card-head {
+	flex-wrap: wrap;
+}
+
+html.raya-theme .raya-card--dark .raya-badge--muted {
+	background-color: #233e54;
+	color: #d2dfec;
+}
+
+/* Named action rather than an unexplained floating brand mark. */
+html.raya-theme .raya-fab {
+	width: auto;
+	height: 44px;
+	padding-inline: 16px;
+	display: flex;
+	gap: 8px;
+	color: #fff;
+	border-radius: 24px;
+	font-size: 13px;
+	bottom: max(20px, env(safe-area-inset-bottom));
+}
+
+html.raya-theme .raya-fab svg {
+	width: 20px;
+	height: 20px;
+	stroke: currentColor;
+}
+
+html.raya-theme .raya-fab[hidden] { display: none; }
+
+html.raya-theme .raya-panel {
+	bottom: 20px;
+	height: min(680px, calc(100dvh - 40px));
+}
+
+html.raya-theme .raya-composer-row {
+	border: 1px solid var(--raya-line-strong);
+	border-radius: 10px;
+	padding: 6px;
+}
+
+/* Launcher is a deliberate choice of applications, with their native identities. */
+html.raya-theme body.desktop-page .desktop-container {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	max-width: 1000px;
+	margin-inline: auto;
+	padding: 64px 24px;
+}
+
+html.raya-theme body.desktop-page .desktop-container .icons-container {
+	margin: 0;
+	width: 100%;
+	align-items: center;
+	padding-inline: 0;
+}
+
+html.raya-theme .desktop-container .icons {
+	display: flex;
+	width: 100%;
+	max-width: 660px;
+	margin: 0;
+	padding: 0;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 24px;
+}
+
+html.raya-theme .desktop-container .icons > div {
+	width: 180px;
+	min-height: 156px;
+	padding: 24px 16px;
+	border: 1px solid var(--border-color);
+	border-radius: 16px;
+	background: var(--card-bg);
+	box-shadow: var(--raya-shadow);
+	text-align: center;
+}
+
+html.raya-theme .desktop-container .icons > div:focus-within {
+	outline: 2px solid var(--raya-teal);
+	outline-offset: 3px;
+}
+
+html.raya-theme .desktop-container .icon-title {
+	color: var(--text-color);
+	font-weight: 600;
+}
+
+html.raya-theme .raya-launcher-heading { text-align: center; margin-bottom: 32px; }
+html.raya-theme .raya-launcher-heading h1 { font-size: 26px; font-weight: 700; }
+html.raya-theme .raya-launcher-heading p { color: var(--text-muted); margin-top: 8px; }
+html.raya-theme[data-raya-page="desktop"] .raya-fab,
+html.raya-theme[data-raya-page="setup-wizard"] .raya-fab,
+html.raya-theme[data-raya-page="setup-wizard"] .raya-panel { display: none; }
+
+/* Setup uses the same controls, but must not inherit the edge-to-edge form layout. */
+html.raya-theme .setup-wizard-slide {
+	max-width: 760px;
+	padding-inline: 24px;
+}
+
+html.raya-theme .slides-wrapper { padding-top: 48px; }
+
+html.raya-theme .setup-wizard-slide .form-wrapper {
+	background: var(--card-bg);
+	border: 1px solid var(--border-color);
+	border-radius: 16px;
+	padding: 24px;
+	box-shadow: var(--raya-shadow);
+}
+
+html.raya-theme .setup-wizard-slide .form-layout {
+	border: 0;
+	box-shadow: none;
+}
+
+html.raya-theme .setup-wizard-slide .slide-footer {
+	padding-block: 20px;
+}
+
+html.raya-theme .setup-wizard-slide .slide-title {
+	font-size: 26px;
+	line-height: 1.5;
+}
+
+@media (max-width: 767.98px) {
+	html.raya-theme .page-container .page-body { padding: 12px 12px 84px; }
+	html.raya-theme .page-head { padding-inline: 12px; }
+	html.raya-theme .page-head .title-text { font-size: 16px; }
+	html.raya-theme .form-layout > .form-section { padding: 16px; }
+	html.raya-theme .raya-hero-heading { align-items: start; flex-wrap: wrap; padding: 16px 16px 0; }
+	html.raya-theme .raya-hero { margin: 12px 16px; }
+	html.raya-theme .raya-hero-input { font-size: 13px; }
+	html.raya-theme .raya-funnel { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px 12px; overflow: visible; }
+	html.raya-theme .raya-funnel .raya-hex { width: 42px; height: 42px; }
+	html.raya-theme .raya-funnel .is-key .raya-hex { width: 48px; height: 48px; }
+	html.raya-theme .raya-row--stack-md > [style*="grid-column"] { grid-column: auto; }
+	html.raya-theme .raya-toolbar-group { max-width: 100%; }
+	html.raya-theme .desktop-container { padding: 32px 16px; }
+	html.raya-theme .desktop-container .icons { gap: 12px; }
+	html.raya-theme .desktop-container .icons > div { width: 140px; min-height: 140px; padding: 16px; }
+	html.raya-theme .setup-wizard-slide { padding-inline: 16px; }
+	html.raya-theme .setup-wizard-slide .form-wrapper { padding: 16px; }
+	html.raya-theme .raya-panel { bottom: 0; height: min(85dvh, 680px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html.raya-theme .raya-skeleton { animation: none; }
 }

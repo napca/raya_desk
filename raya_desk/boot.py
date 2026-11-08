@@ -2,8 +2,6 @@ import frappe
 
 LOGO_MARK = "/assets/raya_desk/images/raya-mark.png"
 LOGO_FULL = "/assets/raya_desk/images/raya-logo-full.png"
-# Apps whose rail and header show the Raya mark instead of their own while the theme is on
-REBRANDED_APPS = ("frappe", "erpnext", "raya_desk")
 
 
 def boot_session(bootinfo):
@@ -26,6 +24,4 @@ def boot_session(bootinfo):
 
 	if settings.enable_theme:
 		bootinfo.app_logo_url = LOGO_MARK
-		for app in bootinfo.get("app_data") or []:
-			if app.get("app_name") in REBRANDED_APPS:
-				app["app_logo_url"] = LOGO_MARK
+		# Organisation branding must not replace each application's own launcher icon.
